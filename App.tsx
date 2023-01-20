@@ -10,6 +10,7 @@ import {
 } from '@expo-google-fonts/nunito-sans'
 import { Home } from '@screens/Home'
 import { Stats } from '@screens/Stats'
+import { NewMeal } from '@screens/NewMeal'
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -18,7 +19,7 @@ export default function App() {
   })
   return (
     <ThemeProvider theme={theme}>
-      {fontsLoaded ? <Stats /> : <ActivityIndicator />}
+      {fontsLoaded ? <NewMeal /> : <ActivityIndicator />}
       <StatusBar />
     </ThemeProvider>
   )
