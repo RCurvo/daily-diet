@@ -37,7 +37,3 @@ export const TwoItensContainer = styled.View`
   align-items: center;
   justify-content: space-between;
 `
-export const SmallInput = styled(BasicInput)`
-  width: 48.5%;
-  align-items: center;
-`

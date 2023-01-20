@@ -1,12 +1,12 @@
-import { TextInput } from 'react-native'
+import { TextInput, View } from 'react-native'
 import styled from 'styled-components/native'
 
 type StyledInputProps = {
   variant?: 'small' | 'large' | 'regular'
 }
 
-export const Container = styled.View`
-  width: 100%;
+export const Container = styled(View)<StyledInputProps>`
+  width: ${({ variant }) => (variant === 'small' ? 48.5 : 100)}%;
   align-items: flex-start;
   justify-content: flex-start;
   background-color: transparent;

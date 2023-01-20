@@ -5,7 +5,6 @@ import {
   Header,
   HeaderText,
   MainContainer,
-  SmallInput,
   TwoItensContainer,
 } from './styles'
 
@@ -25,8 +24,8 @@ export function NewMeal() {
           label="Descrição"
         />
         <TwoItensContainer>
-          <SmallInput label="Data" />
-          <SmallInput label="Hora" />
+          <BasicInput variant="small" label="Data" />
+          <BasicInput variant="small" label="Hora" />
         </TwoItensContainer>
       </MainContainer>
     </Container>

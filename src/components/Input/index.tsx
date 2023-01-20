@@ -15,7 +15,7 @@ export function BasicInput({
   ...rest
 }: BasicInputProps) {
   return (
-    <Container>
+    <Container style={style} variant={variant}>
       <TextLabel>{label}</TextLabel>
       <StyledInput textAlignVertical="top" {...rest} variant={variant} />
     </Container>
