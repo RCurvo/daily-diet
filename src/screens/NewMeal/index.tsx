@@ -1,3 +1,4 @@
+import { Button } from '@components/Button'
 import { BasicInput } from '@components/Input'
 import React from 'react'
 import {
@@ -27,6 +28,7 @@ export function NewMeal() {
           <BasicInput variant="small" label="Data" />
           <BasicInput variant="small" label="Hora" />
         </TwoItensContainer>
+        <Button title={'Cadastrar refeição'}></Button>
       </MainContainer>
     </Container>
   )
