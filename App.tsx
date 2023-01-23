@@ -12,6 +12,7 @@ import { Home } from '@screens/Home'
 import { Stats } from '@screens/Stats'
 import { NewMeal } from '@screens/NewMeal'
 import { CreationFeedback } from '@screens/CreationFeedback'
+import { MeailDetails } from '@screens/MealDetails'
 
 export default function App() {
   const [fontsLoaded] = useFonts({

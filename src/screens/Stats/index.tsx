@@ -46,8 +46,6 @@ export function Stats() {
             <HighlightDescription>refeições fora da dieta</HighlightDescription>
           </ColoredHighlight>
         </MealsContainer>
-        <BasicInput label={'Dota'} />
-        <BasicInput label={'Rudge'} />
       </StatsContainer>
     </Container>
   )

@@ -8,7 +8,7 @@ import {
 } from './styles'
 import IllustrationSuccess from '@assets/success.png'
 import IllustrationFail from '@assets/fail.png'
-import { Image, View } from 'react-native'
+import { Image } from 'react-native'
 
 type Props = {
   type?: 'success' | 'fail'

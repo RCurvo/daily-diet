@@ -18,6 +18,7 @@ import {
 } from './styles'
 import LogoImage from '@assets/Logo.png'
 import { MealCard } from '@components/MealCard'
+import { Button } from '@components/Button'
 
 type MealObjectType = {
   title: string
@@ -81,11 +82,9 @@ export function Home() {
         </PercentageDescription>
       </PercentageDisplay>
       <MealsText>Refeições</MealsText>
-
-      <NewMealButton activeOpacity={0.9}>
+      <Button title="Nova refeição">
         <Plus size={18} color="#ffffff" />
-        <NewMealText>Nova refeição</NewMealText>
-      </NewMealButton>
+      </Button>
       <SectionList
         sections={DATA}
         keyExtractor={(item, index) => item.title + index}
