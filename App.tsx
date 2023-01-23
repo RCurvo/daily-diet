@@ -12,7 +12,7 @@ import { Home } from '@screens/Home'
 import { Stats } from '@screens/Stats'
 import { NewMeal } from '@screens/NewMeal'
 import { CreationFeedback } from '@screens/CreationFeedback'
-import { MeailDetails } from '@screens/MealDetails'
+import { MealDetails } from '@screens/MealDetails'
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -21,7 +21,7 @@ export default function App() {
   })
   return (
     <ThemeProvider theme={theme}>
-      {fontsLoaded ? <CreationFeedback /> : <ActivityIndicator />}
+      {fontsLoaded ? <MealDetails /> : <ActivityIndicator />}
       <StatusBar />
     </ThemeProvider>
   )

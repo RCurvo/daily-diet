@@ -86,6 +86,8 @@ export function Home() {
         <Plus size={18} color="#ffffff" />
       </Button>
       <SectionList
+        showsVerticalScrollIndicator={false}
+        style={{ marginTop: 38 }}
         sections={DATA}
         keyExtractor={(item, index) => item.title + index}
         renderItem={({ item }) => (

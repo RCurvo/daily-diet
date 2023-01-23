@@ -1,23 +1,45 @@
 import { Button } from '@components/Button'
 
 import React from 'react'
+import { View } from 'react-native'
 import {
   Container,
   Header,
   HeaderText,
-  LabelText,
   MainContainer,
-  TwoItensContainer,
+  MealTitle,
+  MealDescription,
+  DateTimeLabel,
+  DateTimeText,
+  MealTypeDisplay,
+  MealType,
+  MealTypeText,
 } from './styles'
 
-export function MeailDetails() {
+export function MealDetails() {
   return (
     <Container>
-      <Header>
+      <Header mealType="healthy">
         <HeaderText>Refeição</HeaderText>
       </Header>
+
       <MainContainer>
-        <Button title={'Cadastrar refeição'}></Button>
+        <View>
+          <MealTitle>Sanduíche</MealTitle>
+          <MealDescription>
+            Sanduíche de pão integral com atum e salada de alface e tomate
+          </MealDescription>
+          <DateTimeLabel>Data e hora</DateTimeLabel>
+          <DateTimeText>12/08/2022 às 16:00</DateTimeText>
+          <MealTypeDisplay>
+            <MealType mealType="healthy" />
+            <MealTypeText>dentro da dieta</MealTypeText>
+          </MealTypeDisplay>
+        </View>
+        <View style={{ width: '100%' }}>
+          <Button title={'Editar refeição'}></Button>
+          <Button title={'Excluir refeição'}></Button>
+        </View>
       </MainContainer>
     </Container>
   )
