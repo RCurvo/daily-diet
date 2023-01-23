@@ -18,7 +18,7 @@ export const StyledInput = styled(TextInput)<StyledInputProps>`
   border-radius: 6px;
   padding: 14px;
   height: ${({ variant }) => (variant === 'large' ? 142 : 48)}px;
-  margin-bottom: 50px;
+  margin-bottom: 24px;
 `
 
 export const TextLabel = styled.Text`

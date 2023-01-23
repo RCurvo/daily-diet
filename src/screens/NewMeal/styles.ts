@@ -22,7 +22,7 @@ export const HeaderText = styled.Text`
 export const MainContainer = styled.View`
   width: 100%;
   flex: 1;
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-start;
   padding: 24px;
   padding-top: 33px;
@@ -35,4 +35,11 @@ export const TwoItensContainer = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+`
+export const LabelText = styled.Text`
+  text-align: left;
+  font-family: ${({ theme }) => theme.FONT_FAMILY.REGULAR};
+  font-size: 16px;
+  margin-top: 40px;
+  color: ${({ theme }) => theme.COLORS.GRAY_1};
 `
