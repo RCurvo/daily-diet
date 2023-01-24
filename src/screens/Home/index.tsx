@@ -1,6 +1,7 @@
 import React from 'react'
-import { SectionList, View, Text } from 'react-native'
+import { SectionList } from 'react-native'
 import { Plus } from 'phosphor-react-native'
+import { useNavigation } from '@react-navigation/native'
 import {
   Avatar,
   Container,
@@ -9,8 +10,6 @@ import {
   Icon,
   Logo,
   MealsText,
-  NewMealButton,
-  NewMealText,
   PercentageDescription,
   PercentageDisplay,
   PercentageHeading,
@@ -66,6 +65,15 @@ const DATA: DATAType[] = [
 ]
 
 export function Home() {
+  const navigation = useNavigation()
+
+  function handleNewMeal() {
+    navigation.navigate('newmeal')
+  }
+
+  function handleStats() {
+    navigation.navigate('stats', { dietType: 'healthy' })
+  }
   return (
     <Container>
       <Header>
@@ -73,7 +81,7 @@ export function Home() {
         <Avatar source={{ uri: 'https://github.com/rcurvo.png' }} />
       </Header>
       <PercentageDisplay dietType="healthy">
-        <StatsButton>
+        <StatsButton onPress={handleStats}>
           <Icon />
         </StatsButton>
         <PercentageHeading>90,86%</PercentageHeading>
@@ -82,7 +90,7 @@ export function Home() {
         </PercentageDescription>
       </PercentageDisplay>
       <MealsText>Refeições</MealsText>
-      <Button title="Nova refeição">
+      <Button onPress={handleNewMeal} title="Nova refeição">
         <Plus size={18} color="#ffffff" />
       </Button>
       <SectionList

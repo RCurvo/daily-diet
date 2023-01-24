@@ -1,4 +1,5 @@
 import { View } from 'react-native'
+import { ArrowLeft } from 'phosphor-react-native'
 import styled from 'styled-components/native'
 
 type DietProps = {
@@ -92,4 +93,9 @@ export const MealsContainer = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+`
+export const BackButton = styled.TouchableOpacity`
+  position: absolute;
+  left: 24px;
+  top: 56px;
 `
