@@ -38,7 +38,7 @@ export function MealDetails() {
         </View>
         <View style={{ width: '100%' }}>
           <Button title={'Editar refeição'}></Button>
-          <Button title={'Excluir refeição'}></Button>
+          <Button title={'Excluir refeição'} variant="secondary"></Button>
         </View>
       </MainContainer>
     </Container>
