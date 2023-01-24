@@ -15,7 +15,7 @@ export function Button({
   ...rest
 }: Props) {
   return (
-    <Pressable>
+    <Pressable style={{ width: '100%', alignItems: 'center' }}>
       {({ pressed }) => (
         <ButtonContainer
           pressed={pressed}
