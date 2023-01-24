@@ -1,6 +1,5 @@
 import { Button } from '@components/Button'
-
-import React from 'react'
+import React, { useState } from 'react'
 import { View } from 'react-native'
 import {
   Container,
@@ -14,11 +13,40 @@ import {
   MealTypeDisplay,
   MealType,
   MealTypeText,
+  StyledModal,
+  DeleteMealContainer,
+  ModalActiveView,
+  ModalText,
+  ModalButtonView,
+  SmallButton,
 } from './styles'
 
 export function MealDetails() {
+  const [modalVisible, setModalVisible] = useState(false)
   return (
-    <Container>
+    <Container mealType="healthy">
+      <StyledModal
+        animationType="fade"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible)
+        }}
+        statusBarTranslucent
+      >
+        <ModalActiveView>
+          <DeleteMealContainer>
+            <ModalText>
+              Deseja realmente excluir o registro da refeição?
+            </ModalText>
+            <ModalButtonView>
+              <SmallButton title="cancelar" variant="secondary" />
+              <SmallButton title="Sim, excluir" variant="primary" />
+            </ModalButtonView>
+          </DeleteMealContainer>
+        </ModalActiveView>
+      </StyledModal>
+
       <Header mealType="healthy">
         <HeaderText>Refeição</HeaderText>
       </Header>

@@ -22,8 +22,8 @@ export default function App() {
   })
   return (
     <ThemeProvider theme={theme}>
-      {fontsLoaded ? <EditMeal /> : <ActivityIndicator />}
-      <StatusBar />
+      {fontsLoaded ? <MealDetails /> : <ActivityIndicator />}
+      <StatusBar backgroundColor="transparent" translucent />
     </ThemeProvider>
   )
 }
