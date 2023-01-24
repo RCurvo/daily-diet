@@ -40,7 +40,11 @@ export function MealDetails() {
               Deseja realmente excluir o registro da refeição?
             </ModalText>
             <ModalButtonView>
-              <SmallButton title="cancelar" variant="secondary" />
+              <SmallButton
+                title="cancelar"
+                onPress={() => setModalVisible(false)}
+                variant="secondary"
+              />
               <SmallButton title="Sim, excluir" variant="primary" />
             </ModalButtonView>
           </DeleteMealContainer>
@@ -66,7 +70,11 @@ export function MealDetails() {
         </View>
         <View style={{ width: '100%' }}>
           <Button title={'Editar refeição'}></Button>
-          <Button title={'Excluir refeição'} variant="secondary"></Button>
+          <Button
+            title="Excluir refeição"
+            onPress={() => setModalVisible(true)}
+            variant="secondary"
+          ></Button>
         </View>
       </MainContainer>
     </Container>

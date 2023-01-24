@@ -12,10 +12,14 @@ export function Button({
   children,
   title,
   variant = 'primary',
+  onPress,
   ...rest
 }: Props) {
   return (
-    <Pressable style={{ width: '100%', alignItems: 'center' }}>
+    <Pressable
+      onPress={onPress}
+      style={{ width: '100%', alignItems: 'center' }}
+    >
       {({ pressed }) => (
         <ButtonContainer
           pressed={pressed}
