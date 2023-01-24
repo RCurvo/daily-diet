@@ -9,12 +9,18 @@ import {
 import IllustrationSuccess from '@assets/success.png'
 import IllustrationFail from '@assets/fail.png'
 import { Image } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
 
 type Props = {
   type?: 'success' | 'fail'
 }
 
 export function CreationFeedback({ type = 'fail' }: Props) {
+  const navigation = useNavigation()
+
+  function handleBackToHome() {
+    navigation.navigate('home')
+  }
   return (
     <Container>
       <Heading type={type}>
@@ -36,7 +42,10 @@ export function CreationFeedback({ type = 'fail' }: Props) {
         style={{ marginBottom: 32 }}
       />
 
-      <SmallButton title={'Ir para a página inicial'} />
+      <SmallButton
+        onPress={handleBackToHome}
+        title={'Ir para a página inicial'}
+      />
     </Container>
   )
 }

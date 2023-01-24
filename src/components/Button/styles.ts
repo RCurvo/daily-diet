@@ -35,5 +35,4 @@ export const ButtonText = styled(Text)<Props>`
     variant === 'primary' ? theme.COLORS.WHITE : theme.COLORS.GRAY_1};
   font-family: ${({ theme }) => theme.FONT_FAMILY.BOLD};
   font-size: 14px;
-  margin-left: 12px;
 `

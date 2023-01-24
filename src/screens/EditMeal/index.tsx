@@ -1,6 +1,7 @@
 import { Button } from '@components/Button'
 import { BasicInput } from '@components/Input'
 import { SelectButton } from '@components/SelectButton'
+import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import {
   Container,
@@ -12,6 +13,11 @@ import {
 } from './styles'
 
 export function EditMeal() {
+  const navigation = useNavigation()
+
+  function handleSubmitEdit() {
+    navigation.navigate('mealdetails', { mealId: 'fasfaf' })
+  }
   return (
     <Container>
       <Header>
@@ -37,7 +43,7 @@ export function EditMeal() {
           <SelectButton type={'yes'} />
           <SelectButton type={'no'} />
         </TwoItensContainer>
-        <Button title={'Salvar Alterações'} />
+        <Button title={'Salvar Alterações'} onPress={handleSubmitEdit} />
       </MainContainer>
     </Container>
   )

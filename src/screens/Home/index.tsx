@@ -74,6 +74,10 @@ export function Home() {
   function handleStats() {
     navigation.navigate('stats', { dietType: 'healthy' })
   }
+
+  function handleMealDetails() {
+    navigation.navigate('mealdetails', { mealId: 'healthy' })
+  }
   return (
     <Container>
       <Header>
@@ -100,6 +104,7 @@ export function Home() {
         keyExtractor={(item, index) => item.title + index}
         renderItem={({ item }) => (
           <MealCard
+            onPress={handleMealDetails}
             meal={item.title}
             hour={item.hour}
             mealType={item.mealType}

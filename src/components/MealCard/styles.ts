@@ -5,7 +5,7 @@ type MealTypeProps = {
   mealType?: 'healthy' | 'unhealthy'
 }
 
-export const Container = styled.View`
+export const Container = styled.TouchableOpacity`
   align-items: center;
   justify-content: space-between;
   flex-direction: row;

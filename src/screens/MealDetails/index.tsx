@@ -1,4 +1,5 @@
 import { Button } from '@components/Button'
+import { useNavigation } from '@react-navigation/native'
 import React, { useState } from 'react'
 import { View } from 'react-native'
 import {
@@ -22,7 +23,12 @@ import {
 } from './styles'
 
 export function MealDetails() {
+  const navigation = useNavigation()
   const [modalVisible, setModalVisible] = useState(false)
+
+  function handleEditMeal() {
+    navigation.navigate('editmeal', { mealId: '51351' })
+  }
   return (
     <Container mealType="healthy">
       <StyledModal
@@ -69,7 +75,7 @@ export function MealDetails() {
           </MealTypeDisplay>
         </View>
         <View style={{ width: '100%' }}>
-          <Button title={'Editar refeição'}></Button>
+          <Button title={'Editar refeição'} onPress={handleEditMeal}></Button>
           <Button
             title="Excluir refeição"
             onPress={() => setModalVisible(true)}

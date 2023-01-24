@@ -1,12 +1,13 @@
 import { Button } from '@components/Button'
 import { View } from 'react-native'
 import styled from 'styled-components/native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 type Props = {
   mealType: 'healthy' | 'unhealthy'
 }
 
-export const Container = styled(View)<Props>`
+export const Container = styled(SafeAreaView)<Props>`
   flex: 1;
   background-color: ${({ theme, mealType }) =>
     mealType === 'unhealthy'

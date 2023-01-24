@@ -1,6 +1,7 @@
 import { Button } from '@components/Button'
 import { BasicInput } from '@components/Input'
 import { SelectButton } from '@components/SelectButton'
+import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import {
   Container,
@@ -12,6 +13,12 @@ import {
 } from './styles'
 
 export function NewMeal() {
+  const navigation = useNavigation()
+
+  function handleSubmitMeal() {
+    navigation.navigate('creationFeedback', { status: 'unhealthy' })
+  }
+
   return (
     <Container>
       <Header>
@@ -36,7 +43,7 @@ export function NewMeal() {
           <SelectButton type={'yes'} />
           <SelectButton type={'no'} />
         </TwoItensContainer>
-        <Button title={'Cadastrar refeição'}></Button>
+        <Button title="Cadastrar refeição" onPress={handleSubmitMeal}></Button>
       </MainContainer>
     </Container>
   )
