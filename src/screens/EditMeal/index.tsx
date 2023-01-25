@@ -2,8 +2,11 @@ import { Button } from '@components/Button'
 import { BasicInput } from '@components/Input'
 import { SelectButton } from '@components/SelectButton'
 import { useNavigation } from '@react-navigation/native'
+import theme from '@themes/theme'
+import { ArrowLeft } from 'phosphor-react-native'
 import React from 'react'
 import {
+  BackButton,
   Container,
   Header,
   HeaderText,
@@ -18,9 +21,16 @@ export function EditMeal() {
   function handleSubmitEdit() {
     navigation.navigate('mealdetails', { mealId: 'fasfaf' })
   }
+  function handleGoBack() {
+    navigation.goBack()
+  }
+
   return (
     <Container>
       <Header>
+        <BackButton onPress={handleGoBack}>
+          <ArrowLeft size={24} color={theme.COLORS.GRAY_2} />
+        </BackButton>
         <HeaderText>Editar Refeição</HeaderText>
       </Header>
       <MainContainer>

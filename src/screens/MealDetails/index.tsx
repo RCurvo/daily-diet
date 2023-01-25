@@ -1,5 +1,7 @@
 import { Button } from '@components/Button'
 import { useNavigation } from '@react-navigation/native'
+import theme from '@themes/theme'
+import { ArrowLeft } from 'phosphor-react-native'
 import React, { useState } from 'react'
 import { View } from 'react-native'
 import {
@@ -20,17 +22,26 @@ import {
   ModalText,
   ModalButtonView,
   SmallButton,
+  BackButton,
 } from './styles'
 
-export function MealDetails() {
+type Props = {
+  mealType?: 'healthy' | 'unhealthy'
+}
+
+export function MealDetails({ mealType = 'healthy' }: Props) {
   const navigation = useNavigation()
   const [modalVisible, setModalVisible] = useState(false)
 
   function handleEditMeal() {
     navigation.navigate('editmeal', { mealId: '51351' })
   }
+
+  function handleGoBack() {
+    navigation.goBack()
+  }
   return (
-    <Container mealType="healthy">
+    <Container mealType={mealType}>
       <StyledModal
         animationType="fade"
         transparent={true}
@@ -58,6 +69,16 @@ export function MealDetails() {
       </StyledModal>
 
       <Header mealType="healthy">
+        <BackButton onPress={handleGoBack}>
+          <ArrowLeft
+            size={24}
+            color={
+              mealType === 'healthy'
+                ? theme.COLORS.GREEN_DARK
+                : theme.COLORS.RED_DARK
+            }
+          />
+        </BackButton>
         <HeaderText>Refeição</HeaderText>
       </Header>
 

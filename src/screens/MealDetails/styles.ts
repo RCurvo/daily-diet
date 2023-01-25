@@ -37,7 +37,6 @@ export const MainContainer = styled.View`
   width: 100%;
   flex: 1;
   align-items: flex-start;
-  /* margin-top: -20px */
   justify-content: space-between;
   padding: 24px;
   padding-top: 33px;
@@ -145,4 +144,9 @@ export const ModalButtonView = styled.View`
 `
 export const SmallButton = styled(Button)`
   width: 135px;
+`
+export const BackButton = styled.TouchableOpacity`
+  position: absolute;
+  left: 24px;
+  top: 56px;
 `

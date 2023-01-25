@@ -45,3 +45,8 @@ export const LabelText = styled.Text`
   margin-top: 40px;
   color: ${({ theme }) => theme.COLORS.GRAY_1};
 `
+export const BackButton = styled.TouchableOpacity`
+  position: absolute;
+  left: 24px;
+  top: 56px;
+`
