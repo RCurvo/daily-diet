@@ -8,7 +8,7 @@ export declare global {
         mealId: string
       }
       creationFeedback: {
-        status: string
+        status: 'success' | 'fail'
       }
       editmeal: {
         mealId: string

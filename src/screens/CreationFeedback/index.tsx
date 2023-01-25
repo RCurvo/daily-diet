@@ -9,24 +9,26 @@ import {
 import IllustrationSuccess from '@assets/success.png'
 import IllustrationFail from '@assets/fail.png'
 import { Image } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 
-type Props = {
-  type?: 'success' | 'fail'
+type RouteParams = {
+  status: 'success' | 'fail'
 }
 
-export function CreationFeedback({ type = 'fail' }: Props) {
+export function CreationFeedback() {
   const navigation = useNavigation()
+  const route = useRoute()
+  const { status } = route.params as RouteParams
 
   function handleBackToHome() {
     navigation.navigate('home')
   }
   return (
     <Container>
-      <Heading type={type}>
-        {type === 'success' ? 'Continue assim!' : 'Que pena!'}
+      <Heading type={status}>
+        {status === 'success' ? 'Continue assim!' : 'Que pena!'}
       </Heading>
-      {type === 'success' ? (
+      {status === 'success' ? (
         <SubHeading>
           Você continua <SubHeadingBold>dentro da dieta</SubHeadingBold>. Muito
           bem!
@@ -38,7 +40,7 @@ export function CreationFeedback({ type = 'fail' }: Props) {
         </SubHeading>
       )}
       <Image
-        source={type === 'success' ? IllustrationSuccess : IllustrationFail}
+        source={status === 'success' ? IllustrationSuccess : IllustrationFail}
         style={{ marginBottom: 32 }}
       />
 

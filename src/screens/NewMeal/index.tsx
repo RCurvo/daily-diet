@@ -4,6 +4,7 @@ import { SelectButton } from '@components/SelectButton'
 import { useNavigation } from '@react-navigation/native'
 import theme from '@themes/theme'
 import { ArrowLeft } from 'phosphor-react-native'
+import { useState } from 'react'
 
 import {
   BackButton,
@@ -17,13 +18,27 @@ import {
 
 export function NewMeal() {
   const navigation = useNavigation()
+  const [isActiveYes, setIsActiveYes] = useState(false)
+  const [isActiveNo, setIsActiveNo] = useState(false)
 
   function handleSubmitMeal() {
-    navigation.navigate('creationFeedback', { status: 'unhealthy' })
+    navigation.navigate('creationFeedback', {
+      status: isActiveYes ? 'success' : 'fail',
+    })
   }
 
   function handleGoBack() {
     navigation.goBack()
+  }
+
+  function handleSelectActiveYes() {
+    setIsActiveYes(true)
+    setIsActiveNo(false)
+  }
+
+  function handleSelectActiveNo() {
+    setIsActiveYes(false)
+    setIsActiveNo(true)
   }
 
   return (
@@ -50,8 +65,16 @@ export function NewMeal() {
 
         <LabelText>Está dentro da dieta?</LabelText>
         <TwoItensContainer>
-          <SelectButton type={'yes'} />
-          <SelectButton type={'no'} />
+          <SelectButton
+            type={'yes'}
+            isActive={isActiveYes}
+            onPress={handleSelectActiveYes}
+          />
+          <SelectButton
+            type={'no'}
+            isActive={isActiveNo}
+            onPress={handleSelectActiveNo}
+          />
         </TwoItensContainer>
         <Button title="Cadastrar refeição" onPress={handleSubmitMeal}></Button>
       </MainContainer>
