@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useCallback, useState } from 'react'
 import { SectionList } from 'react-native'
 import { Plus } from 'phosphor-react-native'
-import { useNavigation } from '@react-navigation/native'
+import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import {
   Avatar,
   Container,
@@ -18,53 +18,12 @@ import {
 import LogoImage from '@assets/Logo.png'
 import { MealCard } from '@components/MealCard'
 import { Button } from '@components/Button'
-
-type MealObjectType = {
-  title: string
-  hour?: string
-  mealType?: 'healthy' | 'unhealthy'
-}
-
-type DATAType = {
-  title: string
-  data: MealObjectType[]
-}
-
-const DATA: DATAType[] = [
-  {
-    title: '12.08.22',
-    data: [
-      { title: 'Pizza', hour: '21:00', mealType: 'healthy' },
-      { title: 'Risoto', hour: '20:00', mealType: 'unhealthy' },
-      { title: 'Pizza', hour: '10:00', mealType: 'healthy' },
-    ],
-  },
-  {
-    title: '11.08.22',
-    data: [
-      { title: 'Pizza', hour: '09:00', mealType: 'healthy' },
-      { title: 'Pizza', hour: '20:00', mealType: 'healthy' },
-      { title: 'Pizza', hour: '20:00', mealType: 'healthy' },
-    ],
-  },
-  {
-    title: '10.08.22',
-    data: [
-      { title: 'Pizza', hour: '20:00' },
-      { title: 'Pizza', hour: '20:00' },
-      { title: 'Pizza', hour: '20:00' },
-    ],
-  },
-  {
-    title: '09.08.22',
-    data: [
-      { title: 'Pizza', hour: '20:00' },
-      { title: 'Pizza', hour: '20:00' },
-    ],
-  },
-]
+import { mealsGetAll } from '@storage/meals/mealsGetAll'
+import { reduceToSectionListFormat } from '../../utils/reduceToSectionListFormat'
+import { MealsByDayDTO } from '@dtos/MealsByDayDTO'
 
 export function Home() {
+  const [meals, setMeals] = useState([] as MealsByDayDTO[])
   const navigation = useNavigation()
 
   function handleNewMeal() {
@@ -78,6 +37,20 @@ export function Home() {
   function handleMealDetails() {
     navigation.navigate('mealdetails', { mealId: 'healthy' })
   }
+
+  async function loadMeals() {
+    const meals = await mealsGetAll()
+
+    const parsedmeals = reduceToSectionListFormat(meals)
+
+    setMeals(parsedmeals)
+  }
+
+  useFocusEffect(
+    useCallback(() => {
+      loadMeals()
+    }, []),
+  )
   return (
     <Container>
       <Header>
@@ -100,8 +73,8 @@ export function Home() {
       <SectionList
         showsVerticalScrollIndicator={false}
         style={{ marginTop: 38 }}
-        sections={DATA}
-        keyExtractor={(item, index) => item.title + index}
+        sections={meals}
+        keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <MealCard
             onPress={handleMealDetails}

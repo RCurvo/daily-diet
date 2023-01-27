@@ -4,6 +4,7 @@ import { SelectButton } from '@components/SelectButton'
 import { MealDTO } from '@dtos/mealDTO'
 import { useNavigation } from '@react-navigation/native'
 import { mealCreate } from '@storage/meals/mealCreate'
+import { mealsGetAll } from '@storage/meals/mealsGetAll'
 import theme from '@themes/theme'
 import { ArrowLeft } from 'phosphor-react-native'
 import { useState } from 'react'
@@ -31,10 +32,28 @@ export function NewMeal() {
   const [timeValue, setTimeValue] = useState('')
   const [dateValue, setDateValue] = useState('')
 
-  function handleSubmitMeal() {
-    navigation.navigate('creationFeedback', {
-      status: isActiveYes ? 'success' : 'fail',
-    })
+  async function handleSubmitMeal() {
+    if (
+      (isActiveYes || isActiveNo) &&
+      name &&
+      description &&
+      timeValue &&
+      dateValue
+    ) {
+      const mealType = isActiveYes ? 'healthy' : 'unhealthy'
+      await mealCreate({
+        id: name + dateValue + timeValue,
+        date: dateValue,
+        hour: timeValue,
+        description,
+        mealType,
+        title: name,
+      })
+      await mealsGetAll()
+      navigation.navigate('creationFeedback', {
+        status: isActiveYes ? 'success' : 'fail',
+      })
+    }
   }
 
   function handleGoBack() {
@@ -61,7 +80,7 @@ export function NewMeal() {
       </Header>
       <ScrollView>
         <MainContainer>
-          <BasicInput label="Nome" />
+          <BasicInput label="Nome" onChangeText={setName} />
           <BasicInput
             variant="large"
             multiline={true}

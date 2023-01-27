@@ -74,7 +74,7 @@ export function reduceToSectionListFormat(MealData) {
       return op
     },
     { result: [], index: {} },
-  ).result
+  ).result.sort((a, b) => (a.title < b.title ? 1 : -1))
 
-  console.log(MEALRECUCED)
+  return MEALRECUCED
 }
