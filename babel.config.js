@@ -14,6 +14,7 @@ module.exports = function (api) {
             '@screens': './src/screens',
             '@storage': './src/storage',
             '@themes': './src/themes',
+            '@dtos': './src/dtos',
           },
         },
       ],

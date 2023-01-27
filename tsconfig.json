@@ -22,6 +22,9 @@
       "@themes/*": [
         "./src/themes/*"
       ],
+      "@dtos/*": [
+        "./src/dtos/*"
+      ],
     }
   }
 }

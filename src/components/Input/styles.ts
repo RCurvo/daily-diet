@@ -6,7 +6,7 @@ type StyledInputProps = {
 }
 
 export const Container = styled(View)<StyledInputProps>`
-  width: ${({ variant }) => (variant === 'small' ? 48.5 : 100)}%;
+  width: ${({ variant }) => (variant === 'small' ? 97.5 : 100)}%;
   align-items: flex-start;
   justify-content: flex-start;
   background-color: transparent;

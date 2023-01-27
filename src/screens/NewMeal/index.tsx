@@ -1,10 +1,14 @@
 import { Button } from '@components/Button'
 import { BasicInput } from '@components/Input'
 import { SelectButton } from '@components/SelectButton'
+import { MealDTO } from '@dtos/mealDTO'
 import { useNavigation } from '@react-navigation/native'
+import { mealCreate } from '@storage/meals/mealCreate'
 import theme from '@themes/theme'
 import { ArrowLeft } from 'phosphor-react-native'
 import { useState } from 'react'
+import { ScrollView, TouchableOpacity, TextInput } from 'react-native'
+import DateTimePickerModal from 'react-native-modal-datetime-picker'
 
 import {
   BackButton,
@@ -20,6 +24,12 @@ export function NewMeal() {
   const navigation = useNavigation()
   const [isActiveYes, setIsActiveYes] = useState(false)
   const [isActiveNo, setIsActiveNo] = useState(false)
+  const [isVisibleDate, setVisibleDate] = useState(false)
+  const [isVisibleTime, setVisibleTime] = useState(false)
+  const [name, setName] = useState('')
+  const [description, setDescription] = useState('')
+  const [timeValue, setTimeValue] = useState('')
+  const [dateValue, setDateValue] = useState('')
 
   function handleSubmitMeal() {
     navigation.navigate('creationFeedback', {
@@ -49,35 +59,103 @@ export function NewMeal() {
         </BackButton>
         <HeaderText>Nova Refeição</HeaderText>
       </Header>
-      <MainContainer>
-        <BasicInput label="Nome" />
-        <BasicInput
-          variant="large"
-          multiline={true}
-          numberOfLines={10}
-          style={{ textAlignVertical: 'top' }}
-          label="Descrição"
-        />
-        <TwoItensContainer>
-          <BasicInput variant="small" label="Data" />
-          <BasicInput variant="small" label="Hora" />
-        </TwoItensContainer>
+      <ScrollView>
+        <MainContainer>
+          <BasicInput label="Nome" />
+          <BasicInput
+            variant="large"
+            multiline={true}
+            numberOfLines={10}
+            style={{ textAlignVertical: 'top' }}
+            label="Descrição"
+            onChangeText={setDescription}
+          />
 
-        <LabelText>Está dentro da dieta?</LabelText>
-        <TwoItensContainer>
-          <SelectButton
-            type={'yes'}
-            isActive={isActiveYes}
-            onPress={handleSelectActiveYes}
+          <DateTimePickerModal
+            mode="date"
+            isVisible={isVisibleDate}
+            onConfirm={(date) => {
+              setVisibleDate(false) // <- first thing
+              setDateValue(
+                date.getDate().toString() +
+                  '/' +
+                  (parseInt(date.getMonth()) + 1).toString() +
+                  '/' +
+                  date.getFullYear(),
+              )
+            }}
+            onCancel={() => setVisibleDate(false)}
           />
-          <SelectButton
-            type={'no'}
-            isActive={isActiveNo}
-            onPress={handleSelectActiveNo}
+          <DateTimePickerModal
+            mode="time"
+            isVisible={isVisibleTime}
+            onConfirm={(time) => {
+              setVisibleTime(false) // <- first thing
+              setTimeValue(
+                time
+                  .toLocaleTimeString('pt-BR', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                  })
+                  .slice(0, -3),
+              )
+            }}
+            onCancel={() => setVisibleTime(false)}
           />
-        </TwoItensContainer>
-        <Button title="Cadastrar refeição" onPress={handleSubmitMeal}></Button>
-      </MainContainer>
+          <TwoItensContainer>
+            <TouchableOpacity
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+                justifyContent: 'center',
+              }}
+              activeOpacity={1}
+              onPress={() => setVisibleDate(true)}
+            >
+              <BasicInput
+                variant="small"
+                label="Data"
+                value={dateValue}
+                editable={false}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                flex: 1,
+                alignItems: 'flex-end',
+                justifyContent: 'center',
+              }}
+              activeOpacity={1}
+              onPress={() => setVisibleTime(true)}
+            >
+              <BasicInput
+                variant="small"
+                label="Hora"
+                value={timeValue}
+                editable={false} // optional
+              />
+            </TouchableOpacity>
+          </TwoItensContainer>
+
+          <LabelText>Está dentro da dieta?</LabelText>
+          <TwoItensContainer>
+            <SelectButton
+              type={'yes'}
+              isActive={isActiveYes}
+              onPress={handleSelectActiveYes}
+            />
+            <SelectButton
+              type={'no'}
+              isActive={isActiveNo}
+              onPress={handleSelectActiveNo}
+            />
+          </TwoItensContainer>
+          <Button
+            title="Cadastrar refeição"
+            onPress={handleSubmitMeal}
+          ></Button>
+        </MainContainer>
+      </ScrollView>
     </Container>
   )
 }
