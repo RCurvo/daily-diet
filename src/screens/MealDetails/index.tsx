@@ -1,8 +1,15 @@
 import { Button } from '@components/Button'
-import { useNavigation } from '@react-navigation/native'
+import { MealDTO } from '@dtos/mealDTO'
+import {
+  useFocusEffect,
+  useNavigation,
+  useRoute,
+} from '@react-navigation/native'
+import { mealGetOne } from '@storage/meals/mealGetOne'
+import { mealRemove } from '@storage/meals/mealRemove'
 import theme from '@themes/theme'
 import { ArrowLeft } from 'phosphor-react-native'
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { View } from 'react-native'
 import {
   Container,
@@ -29,9 +36,16 @@ type Props = {
   mealType?: 'healthy' | 'unhealthy'
 }
 
+type RouteParams = {
+  mealId: string
+}
+
 export function MealDetails({ mealType = 'healthy' }: Props) {
+  const route = useRoute()
+  const { mealId } = route.params as RouteParams
   const navigation = useNavigation()
   const [modalVisible, setModalVisible] = useState(false)
+  const [meal, setMeal] = useState({} as MealDTO)
 
   function handleEditMeal() {
     navigation.navigate('editmeal', { mealId: '51351' })
@@ -40,8 +54,25 @@ export function MealDetails({ mealType = 'healthy' }: Props) {
   function handleGoBack() {
     navigation.goBack()
   }
+
+  async function getMealDetails(mealId: string) {
+    const meal = await mealGetOne(mealId)
+    setMeal(meal)
+    return meal
+  }
+
+  async function handleDeleteMeal(mealId: string) {
+    await mealRemove(mealId)
+    navigation.navigate('home')
+  }
+
+  useFocusEffect(
+    useCallback(() => {
+      getMealDetails(mealId)
+    }, []),
+  )
   return (
-    <Container mealType={mealType}>
+    <Container mealType={meal.mealType}>
       <StyledModal
         animationType="fade"
         transparent={true}
@@ -62,13 +93,17 @@ export function MealDetails({ mealType = 'healthy' }: Props) {
                 onPress={() => setModalVisible(false)}
                 variant="secondary"
               />
-              <SmallButton title="Sim, excluir" variant="primary" />
+              <SmallButton
+                onPress={() => handleDeleteMeal(meal.id)}
+                title="Sim, excluir"
+                variant="primary"
+              />
             </ModalButtonView>
           </DeleteMealContainer>
         </ModalActiveView>
       </StyledModal>
 
-      <Header mealType="healthy">
+      <Header mealType={meal.mealType}>
         <BackButton onPress={handleGoBack}>
           <ArrowLeft
             size={24}
@@ -84,15 +119,19 @@ export function MealDetails({ mealType = 'healthy' }: Props) {
 
       <MainContainer>
         <View>
-          <MealTitle>Sanduíche</MealTitle>
-          <MealDescription>
-            Sanduíche de pão integral com atum e salada de alface e tomate
-          </MealDescription>
+          <MealTitle>{meal.title}</MealTitle>
+          <MealDescription>{meal.description}</MealDescription>
           <DateTimeLabel>Data e hora</DateTimeLabel>
-          <DateTimeText>12/08/2022 às 16:00</DateTimeText>
+          <DateTimeText>
+            {meal.date} às {meal.hour}
+          </DateTimeText>
           <MealTypeDisplay>
-            <MealType mealType="healthy" />
-            <MealTypeText>dentro da dieta</MealTypeText>
+            <MealType mealType={meal.mealType} />
+            <MealTypeText>
+              {meal.mealType === 'healthy'
+                ? 'dentro da dieta'
+                : 'fora da dieta'}
+            </MealTypeText>
           </MealTypeDisplay>
         </View>
         <View style={{ width: '100%' }}>

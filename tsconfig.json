@@ -25,6 +25,9 @@
       "@dtos/*": [
         "./src/dtos/*"
       ],
+      "@utils/*": [
+        "./src/utils/*"
+      ],
     }
   }
 }

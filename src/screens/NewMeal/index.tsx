@@ -1,14 +1,14 @@
 import { Button } from '@components/Button'
 import { BasicInput } from '@components/Input'
 import { SelectButton } from '@components/SelectButton'
-import { MealDTO } from '@dtos/mealDTO'
 import { useNavigation } from '@react-navigation/native'
 import { mealCreate } from '@storage/meals/mealCreate'
 import { mealsGetAll } from '@storage/meals/mealsGetAll'
 import theme from '@themes/theme'
+import { parseDateToDateString } from '@utils/parseDateToDateString'
 import { ArrowLeft } from 'phosphor-react-native'
 import { useState } from 'react'
-import { ScrollView, TouchableOpacity, TextInput } from 'react-native'
+import { ScrollView, TouchableOpacity } from 'react-native'
 import DateTimePickerModal from 'react-native-modal-datetime-picker'
 
 import {
@@ -94,14 +94,8 @@ export function NewMeal() {
             mode="date"
             isVisible={isVisibleDate}
             onConfirm={(date) => {
-              setVisibleDate(false) // <- first thing
-              setDateValue(
-                date.getDate().toString() +
-                  '/' +
-                  (parseInt(date.getMonth()) + 1).toString() +
-                  '/' +
-                  date.getFullYear(),
-              )
+              setVisibleDate(false)
+              setDateValue(parseDateToDateString(date))
             }}
             onCancel={() => setVisibleDate(false)}
           />
@@ -109,7 +103,7 @@ export function NewMeal() {
             mode="time"
             isVisible={isVisibleTime}
             onConfirm={(time) => {
-              setVisibleTime(false) // <- first thing
+              setVisibleTime(false)
               setTimeValue(
                 time
                   .toLocaleTimeString('pt-BR', {

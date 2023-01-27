@@ -1,3 +1,5 @@
+import { parseDateStringToNumber } from './parseDateStringToNumber'
+
 /* eslint-disable no-prototype-builtins */
 const MealData = [
   {
@@ -63,7 +65,6 @@ export function reduceToSectionListFormat(MealData) {
           title,
         },
       ]
-
       const { result, index } = op
       if (index.hasOwnProperty(sectionTitle)) {
         result[index[sectionTitle]].data.push(rest[0])
@@ -74,7 +75,11 @@ export function reduceToSectionListFormat(MealData) {
       return op
     },
     { result: [], index: {} },
-  ).result.sort((a, b) => (a.title < b.title ? 1 : -1))
+  ).result.sort((a, b) =>
+    parseDateStringToNumber(a.title) < parseDateStringToNumber(b.title)
+      ? 1
+      : -1,
+  )
 
   return MEALRECUCED
 }

@@ -23,7 +23,7 @@ import { reduceToSectionListFormat } from '../../utils/reduceToSectionListFormat
 import { MealsByDayDTO } from '@dtos/MealsByDayDTO'
 
 export function Home() {
-  const [meals, setMeals] = useState([] as MealsByDayDTO[])
+  const [meals, setMeals] = useState<MealsByDayDTO[]>([] as MealsByDayDTO[])
   const navigation = useNavigation()
 
   function handleNewMeal() {
@@ -34,8 +34,8 @@ export function Home() {
     navigation.navigate('stats', { dietType: 'healthy' })
   }
 
-  function handleMealDetails() {
-    navigation.navigate('mealdetails', { mealId: 'healthy' })
+  function handleMealDetails(mealId: string) {
+    navigation.navigate('mealdetails', { mealId })
   }
 
   async function loadMeals() {
@@ -77,7 +77,7 @@ export function Home() {
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <MealCard
-            onPress={handleMealDetails}
+            onPress={() => handleMealDetails(item.id)}
             meal={item.title}
             hour={item.hour}
             mealType={item.mealType}
