@@ -1,7 +1,6 @@
 /* eslint-disable camelcase */
 import theme from '@themes/theme'
-import { StatusBar } from 'expo-status-bar'
-import { ActivityIndicator } from 'react-native'
+import { ActivityIndicator, StatusBar } from 'react-native'
 import { ThemeProvider } from 'styled-components'
 import {
   useFonts,
@@ -18,7 +17,11 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       {fontsLoaded ? <Routes /> : <ActivityIndicator />}
-      <StatusBar backgroundColor="transparent" translucent />
+      <StatusBar
+        backgroundColor="transparent"
+        translucent
+        barStyle="dark-content"
+      />
     </ThemeProvider>
   )
 }
