@@ -24,6 +24,7 @@ import { MealsByDayDTO } from '@dtos/MealsByDayDTO'
 
 export function Home() {
   const [meals, setMeals] = useState<MealsByDayDTO[]>([] as MealsByDayDTO[])
+  const [stats, setStats] = useState('')
   const navigation = useNavigation()
 
   function handleNewMeal() {
@@ -31,7 +32,8 @@ export function Home() {
   }
 
   function handleStats() {
-    navigation.navigate('stats', { dietType: 'healthy' })
+    const dietType = Number(stats) > 60 ? 'healthy' : 'unhealthy'
+    navigation.navigate('stats', { dietType })
   }
 
   function handleMealDetails(mealId: string) {
@@ -40,7 +42,9 @@ export function Home() {
 
   async function loadMeals() {
     const meals = await mealsGetAll()
-
+    const healthyMeals = meals.filter((item) => item.mealType === 'healthy')
+    const porcentage = ((healthyMeals.length / meals.length) * 100).toFixed(2)
+    setStats(porcentage)
     const parsedmeals = reduceToSectionListFormat(meals)
 
     setMeals(parsedmeals)
@@ -57,11 +61,15 @@ export function Home() {
         <Logo source={LogoImage} />
         <Avatar source={{ uri: 'https://github.com/rcurvo.png' }} />
       </Header>
-      <PercentageDisplay dietType="healthy">
+      <PercentageDisplay
+        dietType={Number(stats) > 60 ? 'healthy' : 'unhealthy'}
+      >
         <StatsButton onPress={handleStats}>
           <Icon />
         </StatsButton>
-        <PercentageHeading>90,86%</PercentageHeading>
+        <PercentageHeading>
+          {stats.substring(0, 2)},{stats.substring(3, 5)}%
+        </PercentageHeading>
         <PercentageDescription>
           das refeições dentro da dieta
         </PercentageDescription>

@@ -1,4 +1,5 @@
 import { parseDateStringToNumber } from './parseDateStringToNumber'
+import { parseHourToNumber } from './parseHourToNumber'
 
 /* eslint-disable no-prototype-builtins */
 const MealData = [
@@ -79,6 +80,11 @@ export function reduceToSectionListFormat(MealData) {
     parseDateStringToNumber(a.title) < parseDateStringToNumber(b.title)
       ? 1
       : -1,
+  )
+  MEALRECUCED.map((element) =>
+    element.data.sort((a, b) =>
+      parseHourToNumber(a.hour) < parseHourToNumber(b.hour) ? 1 : -1,
+    ),
   )
 
   return MEALRECUCED
