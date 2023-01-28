@@ -43,8 +43,8 @@ export function Home() {
   async function loadMeals() {
     const meals = await mealsGetAll()
     const healthyMeals = meals.filter((item) => item.mealType === 'healthy')
-    const porcentage = ((healthyMeals.length / meals.length) * 100).toFixed(2)
-    setStats(porcentage)
+    const percentage = ((healthyMeals.length / meals.length) * 100).toFixed(2)
+    setStats(percentage)
     const parsedmeals = reduceToSectionListFormat(meals)
 
     setMeals(parsedmeals)
