@@ -1,4 +1,8 @@
 import { MealDTO } from '@dtos/mealDTO'
-import { MEAL_COLLECTION } from '@storage/storageConfig'
+import { mealCreate } from './mealCreate'
+import { mealRemove } from './mealRemove'
 
-export async function mealEdit(meal: MealDTO) {}
+export async function mealEdit(initialMealId: string, newMeal: MealDTO) {
+  await mealRemove(initialMealId)
+  await mealCreate(newMeal)
+}

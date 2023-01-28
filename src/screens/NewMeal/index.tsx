@@ -10,6 +10,8 @@ import { ArrowLeft } from 'phosphor-react-native'
 import { useState } from 'react'
 import { ScrollView, TouchableOpacity } from 'react-native'
 import DateTimePickerModal from 'react-native-modal-datetime-picker'
+import 'react-native-get-random-values'
+import { v4 as uuidv4 } from 'uuid'
 
 import {
   BackButton,
@@ -42,7 +44,7 @@ export function NewMeal() {
     ) {
       const mealType = isActiveYes ? 'healthy' : 'unhealthy'
       await mealCreate({
-        id: name + dateValue + timeValue,
+        id: uuidv4(),
         date: dateValue,
         hour: timeValue,
         description,
@@ -145,7 +147,7 @@ export function NewMeal() {
                 variant="small"
                 label="Hora"
                 value={timeValue}
-                editable={false} // optional
+                editable={false}
               />
             </TouchableOpacity>
           </TwoItensContainer>

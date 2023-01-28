@@ -48,7 +48,7 @@ export function MealDetails({ mealType = 'healthy' }: Props) {
   const [meal, setMeal] = useState({} as MealDTO)
 
   function handleEditMeal() {
-    navigation.navigate('editmeal', { mealId: '51351' })
+    navigation.navigate('editmeal', { mealId: meal.id })
   }
 
   function handleGoBack() {
