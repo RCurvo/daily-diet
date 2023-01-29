@@ -38,7 +38,6 @@ export function Stats() {
   const [percentage, setPercentage] = useState('')
   const [meals, setMeals] = useState([])
   const [maxCount, setMaxCount] = useState(0)
-  const [parsedMeals, setParsedMeals] = useState([])
   const [healthyMeals, setHealthyMeals] = useState(0)
 
   function handleBackButton() {
@@ -49,12 +48,13 @@ export function Stats() {
     setMeals(meals)
     const healthyMeals = meals.filter((item) => item.mealType === 'healthy')
     setHealthyMeals(healthyMeals.length)
-    const percentage = ((healthyMeals.length / meals.length) * 100).toFixed(2)
+    const percentage =
+      meals.length !== 0
+        ? ((healthyMeals.length / meals.length) * 100).toFixed(2)
+        : '0'
     setPercentage(percentage)
     const parsedmeals = reduceToSectionListFormat(meals)
     setMaxCount(healthBestSequence(parsedmeals))
-
-    setParsedMeals(parsedmeals)
   }
 
   useFocusEffect(
@@ -77,8 +77,12 @@ export function Stats() {
           />
         </BackButton>
         <PercentageHeading>
-          {' '}
-          {percentage.substring(0, 2)},{percentage.substring(3, 5)}%
+          {percentage === '100.00'
+            ? '100'
+            : percentage === '0'
+            ? '0'
+            : `${percentage.substring(0, 2)},${percentage.substring(3, 5)}`}
+          %
         </PercentageHeading>
         <PercentageDescription>
           das refeições dentro da dieta
